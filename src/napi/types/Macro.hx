@@ -7,20 +7,29 @@ import haxe.macro.Type;
 using tink.MacroApi;
 
 class Macro {
+	
 	public static function buildNative() {
 		switch Context.getLocalType() {
 			case TInst(_, [p]):
-				return switch p {
-					case TFun(_):
-						TPath('napi.types.Function'.asTypePath([TPType(p.toComplex())]));
-					case TInst(_.get() => {name: 'Array'}, [p]):
-						TPath('napi.types.Array'.asTypePath([TPType(native(p))]));
-					case TAbstract(_.get() => {name: 'Map'}, [_.getID() => 'String', v]):
-						TPath('napi.types.StringMap'.asTypePath([TPType(native(v))]));
-					default: 
-						p.toComplex();
-				}
+				return buildType(p);
 			default: throw 'assert';
+		}
+	}
+
+	static function buildType(type: Type) {
+		return switch type {
+			case TFun(_):
+				TPath('napi.types.Function'.asTypePath([TPType(type.toComplex())]));
+			case TInst(_.get() => {name: 'Array'}, [type]):
+				TPath('napi.types.Array'.asTypePath([TPType(native(type))]));
+			case TAbstract(_.get() => {name: 'Map'}, [_.getID() => 'String', v]):
+				TPath('napi.types.StringMap'.asTypePath([TPType(native(v))]));
+			case TType(_):
+				buildType(Context.follow(type));
+			case TAnonymous(_):
+				TPath('napi.types.Object'.asTypePath([TPType(type.toComplex())]));
+			default: 
+				type.toComplex();
 		}
 	}
 	

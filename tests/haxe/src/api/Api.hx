@@ -2,6 +2,14 @@ package api;
 
 import napi.types.Native;
 
+typedef ObjectDef = {
+	string: String,
+	bool: Bool,
+	int: Int,
+	float: Float,
+	?optional: Int
+}
+
 @:expose
 @:nativeGen
 class Api {
@@ -76,6 +84,13 @@ class Api {
 	public function getFuncSSS():Native<String->String->String> {
 		return function(s1:String, s2:String) {return 'getFuncSSS $s1, $s2';};
 	}
+
+	public function getObject(): Native<ObjectDef> {
+		return {
+			string: "String", bool: true, 
+			int: 123, float: .123
+		}
+	}
 	
 	public function setBool(v:Native<Bool>) {
 		trace(v);
@@ -141,5 +156,9 @@ class Api {
 	public function setFuncSSS(f:Native<String->String->String>) {
 		trace("setFuncSSS " + f.toFunc()('haxe input1', 'haxe input2'));
 		trace("setFuncSSS " + f.call('haxe input1', 'haxe input2'));
+	}
+
+	public function setObject(o: Native<ObjectDef>) {
+		trace(o);
 	}
 }

@@ -28,6 +28,7 @@ trace($api->getInts());
 trace($api->getFloats());
 trace($api->getFloatss());
 trace($api->getStringMap());
+trace($api->getObject());
 
 $api->getFuncVV()();
 $api->getFuncSV()("native input");
@@ -45,6 +46,12 @@ $api->setInts([123, 234, 345]);
 $api->setFloats([1.23, 2.34, 3.45]);
 $api->setStrings(['a', 'b', 'c']);
 $api->setStringMap(['a' => 1, 'b' => 2, 'c' => 3]);
+$api->setObject((object) [
+	'string' => 'phpstr',
+	'bool' => false,
+	'int' => 12,
+	'float' => 0.56
+]);
 
 $api->setFuncVV(function() {trace("setFuncVV");});
 $api->setFuncSV(function($s) {trace("setFuncSV " . $s);});
