@@ -17,7 +17,7 @@ class Run {
 		switch args() {
 			case [v]:
 				switch v {
-					case Node | Cs | Php7:
+					case Node | Cs | Php:
 						run(cast v);
 					default:
 						throw 'Cannot process $v';
@@ -32,7 +32,7 @@ class Run {
 		switch target {
 			case Node: runNode();
 			case Cs: runCs();
-			case Php7: runPhp7();
+			case Php: runPhp();
 		}
 	}
 	
@@ -72,10 +72,10 @@ class Run {
 		cmd('mono', ['--debug', 'Test.exe']);
 	}
 
-	function runPhp7() {
+	function runPhp() {
 		cd('.');
-		cmd('cp', ['tests/php7/src/index.php', 'bin/php7']);
-		cd('bin/php7');
+		cmd('cp', ['tests/php/src/index.php', 'bin/php']);
+		cd('bin/php');
 		cmd('php', ['index.php']);
 	}
 	
@@ -88,5 +88,5 @@ class Run {
 abstract Target(String) to String {
 	var Node = 'node';
 	var Cs = 'cs';
-	var Php7 = 'php7';
+	var Php = 'php';
 }

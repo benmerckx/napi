@@ -3,7 +3,7 @@ package napi.types;
 @:genericBuild(napi.types.Macro.buildFunction())
 @:dce class Function<T> {}
 
-#if (js || php7)
+#if (js || php)
 typedef Action__0 = Void->Void;
 typedef Action__1<T1> = T1->Void;
 typedef Action__2<T1, T2> = T1->T2->Void;
@@ -20,7 +20,7 @@ typedef Func__2<T1, T2, R> = T1->T2->R;
 #end
 
 @:dce abstract Action_0(Action__0) from Action__0 {
-	@:from public static inline function ofFunc(f:Void->Void)
+	@:from public static inline function ofFunc(f:Void->Void): Action_0
 		return #if cs untyped __cs__('() => {0}', f()); #else f; #end
 	@:to public inline function toFunc():Void->Void
 		return #if cs call #else this #end;
@@ -29,7 +29,7 @@ typedef Func__2<T1, T2, R> = T1->T2->R;
 }
 
 @:dce abstract Action_1<T1>(Action__1<T1>) from Action__1<T1> {
-	@:from public static inline function ofFunc<T1>(f:T1->Void)
+	@:from public static inline function ofFunc<T1>(f:T1->Void): Action_1<T1>
 		return #if cs untyped __cs__('(p1) => {0}', f(p1)); #else f; #end
 	@:to public inline function toFunc():T1->Void
 		return #if cs call #else this #end;
@@ -38,7 +38,7 @@ typedef Func__2<T1, T2, R> = T1->T2->R;
 }
 
 @:dce abstract Action_2<T1, T2>(Action__2<T1, T2>) from Action__2<T1, T2> {
-	@:from public static inline function ofFunc<T1, T2>(f:T1->T2->Void)
+	@:from public static inline function ofFunc<T1, T2>(f:T1->T2->Void): Action_2<T1, T2>
 		return #if cs untyped __cs__('(p1, p2) => {0}', f(p1, p2)); #else f; #end
 	@:to public inline function toFunc():T1->T2->Void
 		return #if cs call #else this #end;
@@ -48,7 +48,7 @@ typedef Func__2<T1, T2, R> = T1->T2->R;
 
 
 @:dce abstract Func_0<R>(Func__0<R>) from Func__0<R> {
-	@:from public static inline function ofFunc<R>(f:Void->R)
+	@:from public static inline function ofFunc<R>(f:Void->R): Func_0<R>
 		return #if cs untyped __cs__('() => {0}', f()); #else f; #end
 	@:to public inline function toFunc():Void->R
 		return #if cs call #else this #end;
@@ -57,7 +57,7 @@ typedef Func__2<T1, T2, R> = T1->T2->R;
 }
 
 @:dce abstract Func_1<T1, R>(Func__1<T1, R>) from Func__1<T1, R> {
-	@:from public static inline function ofFunc<T1, R>(f:T1->R)
+	@:from public static inline function ofFunc<T1, R>(f:T1->R): Func_1<T1, R>
 		return #if cs untyped __cs__('(p1) => {0}', f(p1)); #else f; #end
 	@:to public inline function toFunc():T1->R
 		return #if cs call #else this #end;
@@ -66,7 +66,7 @@ typedef Func__2<T1, T2, R> = T1->T2->R;
 }
 
 @:dce abstract Func_2<T1, T2, R>(Func__2<T1, T2, R>) from Func__2<T1, T2, R> {
-	@:from public static inline function ofFunc<T1, T2, R>(f:T1->T2->R)
+	@:from public static inline function ofFunc<T1, T2, R>(f:T1->T2->R): Func_2<T1, T2, R>
 		return #if cs untyped __cs__('(p1, p2) => {0}', f(p1, p2)); #else f; #end
 	@:to public inline function toFunc():T1->T2->R
 		return #if cs call #else this #end;

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test:php": "cd tests && haxe run.hxml --run Run php7"
+    "test:php": "cd tests && haxe run.hxml --run Run php"
   },
   "dependencies": {
     "haxe-travix": "^0.10.5",

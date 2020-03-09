@@ -4,7 +4,7 @@ package napi.types;
 private typedef Impl<T> = {};
 #elseif js
 private typedef Impl<T> = {};
-#elseif php7
+#elseif php
 private typedef Impl<T> = php.StdClass;
 #end
 
@@ -19,6 +19,8 @@ private typedef Impl<T> = php.StdClass;
 	}
 	
 	@:to public inline function toObject<T>(): T {
+		if (this == null || php.Boot.isAnon(this))
+			return cast this;
 		return cast php.Boot.createAnon(cast this);
 	}
 

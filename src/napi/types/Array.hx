@@ -6,7 +6,7 @@ import Array as StdArray;
 private typedef Impl<T> = StdArray<T>;
 #elseif cs
 private typedef Impl<T> = cs.system.collections.generic.List_1<T>;
-#elseif php7
+#elseif php
 // We can't use php.NativeIndexedArray<T> because the @:from/@:to methods interfere with those below
 private typedef Impl<T> = php.NativeArray;
 #end
@@ -19,7 +19,7 @@ private typedef Impl<T> = php.NativeArray;
 			var arr = new Impl();
 			for(i in v) arr.Add(i);
 			return arr;
-		#elseif php7
+		#elseif php
 			return cast @:privateAccess v.arr;
 		#end
 	}
@@ -32,7 +32,7 @@ private typedef Impl<T> = php.NativeArray;
 			var iter = this.GetEnumerator();
 			while(iter.MoveNext()) arr.push(iter.Current);
 			return arr;
-		#elseif php7
+		#elseif php
 			return @:privateAccess StdArray.wrap(this);
 		#end
 	}
