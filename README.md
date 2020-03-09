@@ -31,7 +31,7 @@ The primary goal of this initiative is to provide common data types that
 are useful to both Haxe and Native developers.
 
 For example, in Haxe/JS a Map is implemented as an object with a `h` key holding
-the key/value pairs and on Haxe/Java & Haxe/C# it is a double array. Both of them 
+the key/value pairs, while on Haxe/Java & Haxe/C# it is a double array. Both of them 
 are not very useful to a native developer.
 
 For this particular problem, one of the possible solution is to use `Proxy` in
@@ -48,6 +48,7 @@ Here lists some of the extended goals that may worth discussion:
 - Genenate native-friendly class from an ordinary Haxe class
 - Macro that generates the required header/wrapper/whatnot for c++
 - Documentations, tutorials, starter kits, etc
+- Toolkit for building, testing, packing binaries, submiting to central repositories, etc
 
 ## Collaborations Welcome
 
