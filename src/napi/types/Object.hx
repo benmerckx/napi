@@ -8,14 +8,18 @@ private typedef Impl<T> = {};
 private typedef Impl<T> = php.StdClass;
 #end
 
-@:dce abstract Object<T>(Impl<T>) from Impl<T> {
+@:dce abstract Object<T: {}>(Impl<T>) from Impl<T> {
 
-	public static function copyFromObject<T>(obj: T, fields: Array<String>): Impl<T> {
-		
+	@:from public static inline function copyFromObject<T: {}>(obj: T): Object<T> {
+		#if php
+		return cast obj;
+		#else
+		return cast obj;
+		#end
 	}
 	
-	public static function copyAsObject<T>(native: Impl<T>, fields: Array<String>): T {
-		return cast this;
+	@:to public inline function toObject<T>(): T {
+		return cast php.Boot.createAnon(cast this);
 	}
 
 }

@@ -159,6 +159,6 @@ class Api {
 	}
 
 	public function setObject(o: Native<ObjectDef>) {
-		trace(o);
+		trace(o.toObject().optional);
 	}
 }
