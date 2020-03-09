@@ -1,20 +1,14 @@
 sudo: required
 dist: trusty
 
-language: haxe
-
-os:
-  - linux
-  - osx
-  
-haxe:
-  - "3.4.0"
-  - development
-  
-matrix:
-  allow_failures:
-    - haxe: development
+language: node_js
+node_js: 6
     
 install:
-
+  - yarn
+  - export PATH=$PATH:$(yarn bin)
+  - lix download
+  
 script:
+  - travix node && haxe --cwd tests run.hxml --run Run node
+  - travix cs && haxe --cwd tests run.hxml --run Run cs
